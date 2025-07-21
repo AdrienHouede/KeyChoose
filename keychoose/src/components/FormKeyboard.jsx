@@ -1,6 +1,16 @@
 import React from 'react';
 
 function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, setMaterial, size, setSize }) {
+  const handleSizeChange = (e) => {
+    const val = parseInt(e.target.value, 10);
+    // Force à 80 ou 100 uniquement
+    if (val < 90) {
+      setSize(80);
+    } else {
+      setSize(100);
+    }
+  };
+
   return (
     <form style={{ marginBottom: '2rem' }}>
       <fieldset>
@@ -66,15 +76,20 @@ function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, 
       </fieldset>
 
       <fieldset>
-        <legend><strong>Taille</strong></legend>
+        <legend><strong>Taille du clavier</strong></legend>
         <input
           type="range"
-          min="50"
-          max="150"
+          min="80"
+          max="100"
+          step="20"
           value={size}
-          onChange={(e) => setSize(parseInt(e.target.value))}
+          onChange={handleSizeChange}
         />
-        <span>{size}%</span>
+        <span>
+          {size === 100
+            ? 'Taille standard (avec pavé numérique)'
+            : 'Taille compacte (sans pavé numérique)'}
+        </span>
       </fieldset>
     </form>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Keyboard from './components/Keyboard';
-import FormKeyboard from './components/FormKeyboard';
+import FormKeyboard from './components/formKeyboard';
 
 function App() {
   const [layoutType, setLayoutType] = useState('azerty'); // qwerty, azerty, bepo
