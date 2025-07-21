@@ -1,0 +1,170 @@
+/* formulaireInscription.css */
+
+.form-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+} 
+
+.form-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #232323;
+}
+
+.form-section {
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.form-heading {
+  font-size: 40px;
+  font-weight: bold;
+  color: #232323;
+}
+
+.input-group {
+  position: relative;
+  width: 100%;
+  border: 1.5px solid #357aff;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: white;
+}
+
+.input-label {
+  position: absolute;
+  top: -12px;
+  left: 12px;
+  background: white;
+  padding: 0 0.25rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: #357aff;
+}
+
+.input-field {
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  color: #232323;
+}
+
+.password-group {
+  width: 100%;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.password-field {
+  flex: 1;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  color: #232323;
+}
+
+.submit-button {
+  width: 100%;
+  background-color: #357aff;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.separator-line {
+  flex: 1;
+  height: 1px;
+  background-color: #d9d9d9;
+}
+
+.separator-text {
+  color: #6d6d6d;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.login-text {
+  text-align: center;
+  font-size: 18px;
+  color: #6c6c6c;
+}
+
+.login-link {
+  color: #357aff;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100vh;
+  width: 65vw;
+}
+
+.image-block {
+  width: 30vw;
+  height: 98vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.image-left {
+  background-image: url("../image/jpeg/inscription_keyboards.jpg");
+  background-position: left center;
+}
+.image-right {
+  background-image: url("../image/jpeg/inscription_keyboards.jpg");
+  background-position: right center;
+}
+
+@media (max-width: 768px) {
+  .form-left {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .image-container {
+    display: none;
+  }
+}
+
+@media (max-width: 1098px) {
+  .image-left {
+    width: 60vw;
+  }
+
+  .image-right {
+    display: none;
+  }
+}
