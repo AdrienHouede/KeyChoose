@@ -1,4 +1,4 @@
-const azerty = [
+const azerty_ansi = [
   [
     { label: 'Échap', key: 'Escape', className: 'key-esc' },
     { label: 'F1', key: 'F1' }, { label: 'F2', key: 'F2' }, { label: 'F3', key: 'F3' },
@@ -26,14 +26,15 @@ const azerty = [
     { label: 'Q', key: 'KeyQ' }, { label: 'S', key: 'KeyS' }, { label: 'D', key: 'KeyD' },
     { label: 'F', key: 'KeyF' }, { label: 'G', key: 'KeyG' }, { label: 'H', key: 'KeyH' },
     { label: 'J', key: 'KeyJ' }, { label: 'K', key: 'KeyK' }, { label: 'L', key: 'KeyL' },
-    { label: 'M', key: 'Semicolon' }, { label: 'ù', key: 'Quote' }, { label: 'Enter', key: 'Enter', className: 'key-enter-iso' }
+    { label: 'M', key: 'Semicolon' }, { label: 'ù', key: 'Quote' },
+    { label: 'Enter', key: 'Enter', className: 'key-enter-ansi' }
   ],
   [
     { label: 'Shift', key: 'ShiftLeft', className: 'key-shift' },
-    { label: '<', key: 'IntlBackslash' }, { label: 'W', key: 'KeyW' }, { label: 'X', key: 'KeyX' },
-    { label: 'C', key: 'KeyC' }, { label: 'V', key: 'KeyV' }, { label: 'B', key: 'KeyB' },
-    { label: 'N', key: 'KeyN' }, { label: ',', key: 'Comma' }, { label: ';', key: 'Period' },
-    { label: ':', key: 'Slash' }, { label: '!', key: 'ShiftRight' }
+    { label: 'W', key: 'KeyW' }, { label: 'X', key: 'KeyX' }, { label: 'C', key: 'KeyC' },
+    { label: 'V', key: 'KeyV' }, { label: 'B', key: 'KeyB' }, { label: 'N', key: 'KeyN' },
+    { label: ',', key: 'Comma' }, { label: ';', key: 'Period' }, { label: ':', key: 'Slash' },
+    { label: 'Shift', key: 'ShiftRight', className: 'key-shift' }
   ],
   [
     { label: 'Ctrl', key: 'ControlLeft', className: 'key-ctrl' },
@@ -46,4 +47,4 @@ const azerty = [
   ]
 ];
 
-export default azerty;
+export default azerty_ansi;

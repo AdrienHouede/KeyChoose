@@ -1,4 +1,4 @@
-const bepo = [
+const bepo_iso = [
   [
     { label: 'Esc', key: 'Escape', className: 'key-esc' },
     { label: 'F1', key: 'F1' }, { label: 'F2', key: 'F2' }, { label: 'F3', key: 'F3' },
@@ -29,11 +29,11 @@ const bepo = [
     { label: 'V', key: 'KeyV' }, { label: 'Z', key: 'KeyZ' }, { label: 'Enter', key: 'Enter', className: 'key-enter-iso' }
   ],
   [
-    { label: 'Shift', key: 'ShiftLeft', className: 'key-shift' },
+    { label: 'Shift', key: 'ShiftLeft', className: 'key-shift-iso' },
     { label: '<', key: 'IntlBackslash' }, { label: 'W', key: 'KeyW' }, { label: 'X', key: 'KeyX' },
     { label: 'C', key: 'KeyC' }, { label: 'F', key: 'KeyF' }, { label: 'Q', key: 'KeyQ' },
     { label: 'K', key: 'KeyK' }, { label: ',', key: 'Comma' }, { label: ';', key: 'Period' },
-    { label: ':', key: 'Slash' }, { label: '!', key: 'ShiftRight' }
+    { label: ':', key: 'Slash' }, { label: 'Shift', key: 'ShiftRight', className: 'key-shift' }
   ],
   [
     { label: 'Ctrl', key: 'ControlLeft', className: 'key-ctrl' },
@@ -46,4 +46,4 @@ const bepo = [
   ]
 ];
 
-export default bepo;
+export default bepo_iso;

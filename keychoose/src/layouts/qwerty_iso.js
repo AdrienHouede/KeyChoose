@@ -1,4 +1,4 @@
-const qwerty = [
+const qwerty_iso = [
   [
     { label: 'Esc', key: 'Escape', className: 'key-esc' },
     { label: 'F1', key: 'F1' }, { label: 'F2', key: 'F2' }, { label: 'F3', key: 'F3' },
@@ -26,14 +26,15 @@ const qwerty = [
     { label: 'A', key: 'KeyA' }, { label: 'S', key: 'KeyS' }, { label: 'D', key: 'KeyD' },
     { label: 'F', key: 'KeyF' }, { label: 'G', key: 'KeyG' }, { label: 'H', key: 'KeyH' },
     { label: 'J', key: 'KeyJ' }, { label: 'K', key: 'KeyK' }, { label: 'L', key: 'KeyL' },
-    { label: ';', key: 'Semicolon' }, { label: '\'', key: 'Quote' }, { label: 'Enter', key: 'Enter', className: 'key-enter-ansi' }
+    { label: ';', key: 'Semicolon' }, { label: '\'', key: 'Quote' },
+    { label: 'Enter', key: 'Enter', className: 'key-enter-iso' }
   ],
   [
-    { label: 'Shift', key: 'ShiftLeft', className: 'key-shift' },
+    { label: 'Shift', key: 'ShiftLeft', className: 'key-shift-iso' },
     { label: 'Z', key: 'KeyZ' }, { label: 'X', key: 'KeyX' }, { label: 'C', key: 'KeyC' },
     { label: 'V', key: 'KeyV' }, { label: 'B', key: 'KeyB' }, { label: 'N', key: 'KeyN' },
-    { label: 'M', key: 'KeyM' }, { label: ',', key: 'Comma' }, { label: '.', key: 'Period' },
-    { label: '/', key: 'Slash' }, { label: 'Shift', key: 'ShiftRight' }
+    { label: 'M', key: 'KeyM' }, { label: '<', key: 'IntlBackslash' }, { label: '>', key: 'IntlFrontslash' },
+    { label: '/', key: 'Slash' }, { label: 'Shift', key: 'ShiftRight', className: 'key-shift' }
   ],
   [
     { label: 'Ctrl', key: 'ControlLeft', className: 'key-ctrl' },
@@ -46,4 +47,4 @@ const qwerty = [
   ]
 ];
 
-export default qwerty;
+export default qwerty_iso;

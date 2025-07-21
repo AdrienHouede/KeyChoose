@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import Keyboard from './components/Keyboard';
-import FormKeyboard from './components/formKeyboard';
+import FormKeyboard from './components/FormKeyboard';
 
 function App() {
-  // États partagés
-  const [layout, setLayout] = useState('azerty');
+  const [layoutType, setLayoutType] = useState('azerty'); // qwerty, azerty, bepo
+  const [format, setFormat] = useState('ISO');            // ISO, ANSI
   const [material, setMaterial] = useState('aluminium');
-  const [format, setFormat] = useState('ISO');
   const [size, setSize] = useState(80);
+
+  // On déduit le layout à utiliser dynamiquement
+  const layout = `${layoutType}_${format.toLowerCase()}`;
 
   return (
     <div style={{ padding: '2rem' }}>
-      {/* Formulaire reçoit les valeurs et des callbacks pour modifier */}
       <FormKeyboard
-        layout={layout}
-        setLayout={setLayout}
-        material={material}
-        setMaterial={setMaterial}
+        layoutType={layoutType}
+        setLayoutType={setLayoutType}
         format={format}
         setFormat={setFormat}
+        material={material}
+        setMaterial={setMaterial}
         size={size}
         setSize={setSize}
       />
 
-      {/* Clavier reçoit les valeurs pour l'affichage */}
       <Keyboard
         layout={layout}
         material={material}

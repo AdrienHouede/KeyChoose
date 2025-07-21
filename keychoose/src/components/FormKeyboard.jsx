@@ -1,117 +1,83 @@
 import React from 'react';
 
-const FormKeyboard = ({ layout, setLayout, material, setMaterial, format, setFormat, size, setSize }) => {
+function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, setMaterial, size, setSize }) {
   return (
-    <div style={{ maxWidth: 600, margin: 'auto', fontFamily: 'Arial, sans-serif' }}>
-      <h2>Choix du clavier</h2>
-
-      <div>
-        <label>
-          <input
-            type="radio"
-            name="layout"
-            value="qwerty"
-            checked={layout === 'qwerty'}
-            onChange={e => setLayout(e.target.value)}
-          />
-          QWERTY
-        </label><br />
+    <form style={{ marginBottom: '2rem' }}>
+      <fieldset>
+        <legend><strong>Disposition</strong></legend>
         <label>
           <input
             type="radio"
             name="layout"
             value="azerty"
-            checked={layout === 'azerty'}
-            onChange={e => setLayout(e.target.value)}
-          />
-          AZERTY
-        </label><br />
+            checked={layoutType === 'azerty'}
+            onChange={(e) => setLayoutType(e.target.value)}
+          /> Azerty
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="layout"
+            value="qwerty"
+            checked={layoutType === 'qwerty'}
+            onChange={(e) => setLayoutType(e.target.value)}
+          /> Qwerty
+        </label>
         <label>
           <input
             type="radio"
             name="layout"
             value="bepo"
-            checked={layout === 'bepo'}
-            onChange={e => setLayout(e.target.value)}
-          />
-          BEPO
+            checked={layoutType === 'bepo'}
+            onChange={(e) => setLayoutType(e.target.value)}
+          /> Bepo
         </label>
-      </div>
+      </fieldset>
 
-      {/* Matériaux */}
-      <div style={{ marginTop: 20 }}>
-        <label>
-          <input
-            type="radio"
-            name="material"
-            value="aluminium"
-            checked={material === 'aluminium'}
-            onChange={e => setMaterial(e.target.value)}
-          />
-          Aluminium
-        </label><br />
-        <label>
-          <input
-            type="radio"
-            name="material"
-            value="bois"
-            checked={material === 'bois'}
-            onChange={e => setMaterial(e.target.value)}
-          />
-          Bois
-        </label><br />
-        <label>
-          <input
-            type="radio"
-            name="material"
-            value="plastique"
-            checked={material === 'plastique'}
-            onChange={e => setMaterial(e.target.value)}
-          />
-          Plastique
-        </label>
-      </div>
-
-      {/* Format */}
-      <div style={{ marginTop: 20 }}>
+      <fieldset>
+        <legend><strong>Format</strong></legend>
         <label>
           <input
             type="radio"
             name="format"
             value="ISO"
             checked={format === 'ISO'}
-            onChange={e => setFormat(e.target.value)}
-          />
-          ISO
-        </label><br />
+            onChange={(e) => setFormat(e.target.value)}
+          /> ISO
+        </label>
         <label>
           <input
             type="radio"
             name="format"
             value="ANSI"
             checked={format === 'ANSI'}
-            onChange={e => setFormat(e.target.value)}
-          />
-          ANSI
+            onChange={(e) => setFormat(e.target.value)}
+          /> ANSI
         </label>
-      </div>
+      </fieldset>
 
-      {/* Taille */}
-      <div style={{ marginTop: 20 }}>
-        <label>
-          Taille : {size} %
-          <input
-            type="range"
-            min="40"
-            max="100"
-            value={size}
-            onChange={e => setSize(parseInt(e.target.value))}
-            style={{ width: '100%' }}
-          />
-        </label>
-      </div>
-    </div>
+      <fieldset>
+        <legend><strong>Matériau</strong></legend>
+        <select value={material} onChange={(e) => setMaterial(e.target.value)}>
+          <option value="plastique">Plastique</option>
+          <option value="bois">Bois</option>
+          <option value="aluminium">Aluminium</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>Taille</strong></legend>
+        <input
+          type="range"
+          min="50"
+          max="150"
+          value={size}
+          onChange={(e) => setSize(parseInt(e.target.value))}
+        />
+        <span>{size}%</span>
+      </fieldset>
+    </form>
   );
-};
+}
 
 export default FormKeyboard;
