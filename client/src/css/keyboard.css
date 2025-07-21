@@ -1,0 +1,122 @@
+/* Style de base d'une touche */
+/* Nouveau conteneur horizontal pour le clavier complet */
+.keyboard-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* Ajuste le bloc principal du clavier pour qu’il ne prenne pas toute la largeur */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  color: white;
+  border-radius: 6px;
+  border: 1px solid #333;
+  margin: 2px;
+  font-size: 0.9rem;
+  height: 3rem;
+  min-width: 3rem;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Container pour positionner les lignes */
+.keyboard-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Touche Enter ISO avec forme en L inversé */
+.key-enter-iso {
+  position: relative;
+  width: 6rem;        /* Largeur de la partie haute */
+  height: 3rem;
+}
+
+.key-enter-iso::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 100%;          /* Juste en dessous */
+  width: 3rem;        /* Hauteur du bloc vertical */
+  height: 3rem;
+  background-color: #000;
+  border: 1px solid #333;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  z-index: 1;
+}
+
+.key-enter-iso:hover,
+.key-enter-iso:hover::after {  /* ou la couleur hover que tu souhaites */
+  border-color: #535bf2;
+}
+
+.key-enter-iso span {
+  position: relative;
+  z-index: 2;
+}
+
+/* Barre espace allongée */
+.key-space {
+  min-width: 15rem;
+  height: 3rem;
+  border-radius: 8px;
+}
+
+.key-shift {
+  min-width: 6rem;
+}
+
+.key-shift-iso {
+  min-width: 4rem;
+}
+
+/* Style pour un clavier en bois */
+.keyboard-bois {
+  background: linear-gradient(145deg, #8b5e3c, #a17451); /* dégradé marron chaud */
+  border-radius: 10px;
+  box-shadow:
+    inset 0 2px 5px rgba(255, 255, 255, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+  font-family: 'Georgia', serif;
+  color: #3a2e1f;
+}
+
+/* Style pour un clavier en plastique */
+.keyboard-plastique {
+  background: #8bbcee; /* gris clair neutre */
+  border-radius: 6px;
+  box-shadow:
+    inset 0 1px 3px rgba(14, 44, 46, 0.7),
+    0 2px 5px rgba(0, 0, 0, 0.15);
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+/* Style pour un clavier en aluminium */
+.keyboard-aluminium {
+  background: linear-gradient(135deg, #c0c5c9, #8a8f94);
+  border-radius: 8px;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.6),
+    0 3px 6px rgba(0, 0, 0, 0.25);
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #1e1e1e;
+  /* effet métallique subtil */
+  background-image:
+    linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255,255,255,0.15) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.15) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.15) 75%);
+  background-size: 20px 20px;
+  background-repeat: repeat;
+}

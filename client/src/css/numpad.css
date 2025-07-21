@@ -1,0 +1,35 @@
+.numpad {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  position: relative; /* à ajouter pour contexte absolu des enfants */
+}
+
+.numpad-row {
+  display: flex;
+  justify-content: flex-start;
+  position: relative; /* à garder pour les touches positionnées */
+  height: 3.1rem; /* hauteur fixe pour toutes les lignes (à adapter) */
+  margin-bottom: 0.2rem; /* espacement entre lignes */
+}
+
+/* Touche large pour 0 */
+.key-wide {
+  min-width: 6.2rem;
+  height: 3.1rem; /* hauteur normale */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Touche haute pour + et entrée */
+.key-tall {
+  position: absolute;  /* pour sortir du flux et ne pas décaler */
+  height: 6rem;
+  width: 4.3rem;  /* même largeur que key-wide */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;  /* alignée en haut de la ligne */
+  left: calc(100% - 4.5rem);
+}
