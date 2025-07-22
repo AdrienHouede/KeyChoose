@@ -1,0 +1,1 @@
+export { FormulaireInscription } from "./FormulaireInscription";
