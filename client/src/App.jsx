@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Keyboard from './components/Keyboard';
 import Header from './components/Header';
 import FormKeyboard from "./components/FormKeyboard.jsx";
@@ -40,10 +40,14 @@ function ClavierPage() {
   );
 }
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+  const hideHeaderRoutes = ['/inscription', '/connexion'];
+  const shouldHideHeader = hideHeaderRoutes.includes(location.pathname);
+
   return (
-    <Router>
-      <Header />
+    <>
+      {!shouldHideHeader && <Header />}
       <Routes>
         <Route path="/" element={<Navigate to="/profil" />} />
         <Route path="/profil" element={<Profil />} />
@@ -53,6 +57,14 @@ function App() {
         <Route path="/description" element={<Description />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

@@ -27,6 +27,13 @@
       "routes": [
         "/description"
       ]
+    },
+    {
+      "id": "src/screens/Contact/Contact.jsx",
+      "label": "Contact",
+      "routes": [
+        "/contact"
+      ]
     }
   ],
   "edges": [
