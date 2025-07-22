@@ -12,15 +12,6 @@ body {
   padding: 1rem;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 1rem 0;
-}
-
 .logo-container {
   display: flex;
   align-items: center;
@@ -177,4 +168,87 @@ body {
   .profil-intro h1 {
     font-size: 1.5rem;
   }
+}
+
+
+.banner {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.banner-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  display: flex;
+}
+
+.banner-icon {
+  width: 3rem;
+  height: auto;
+}
+
+.banner-title {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: 'Chelsea Market', cursive;
+  align-self: center;
+}
+
+/* Titre section Profils */
+.profil-title-icon {
+  width: 40px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-family: 'Chelsea Market', cursive;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0 1.5rem;
+}
+
+/* Style cartes */
+.profile-card {
+  background-color: #f3f3f3;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 240px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.profile-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.profile-card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.keyboard-img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin: 0 auto 1rem;
 }
