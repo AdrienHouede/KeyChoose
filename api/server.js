@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const { connectDB } = require('./config/db');
+const { swaggerUi, swaggerSpec } = require('./config/swagger');
 
 const authRoutes = require('./routes/authRoutes');
 const passwordRoutes = require('./routes/passwordRoutes');
@@ -13,10 +14,10 @@ const adminRoutes = require('./routes/adminRoutes');
 
 dotenv.config();
 const app = express();
-
-app.use(cors());
-app.use(express.json());
+app.use(cors(), express.json());
 connectDB();
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/password', passwordRoutes);
