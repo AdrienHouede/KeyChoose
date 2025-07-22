@@ -1,0 +1,52 @@
+{
+  "nodes": [
+    {
+      "id": "src/screens/FormulaireInscription/FormulaireInscription.jsx",
+      "label": "FormulaireInscription",
+      "routes": [
+        "/inscription"
+      ]
+    },
+    {
+      "id": "src/screens/FormulaireConnexion/FormulaireConnexion.jsx",
+      "label": "FormulaireConnexion",
+      "routes": [
+        "/connexion"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "src\\screens\\FormulaireInscription\\FormulaireInscription.jsx:60:12-to-src\\screens\\FormulaireConnexion\\FormulaireConnexion.jsx",
+      "source": "src\\screens\\FormulaireInscription\\FormulaireInscription.jsx",
+      "target": "src\\screens\\FormulaireConnexion\\FormulaireConnexion.jsx",
+      "data": {
+        "viaRoute": "/connexion",
+        "trigger": {
+          "element": "<Link to=\"/connexion\" className=\"login-link\">\r\n              Connectez-vous\r\n            </Link>",
+          "line": 60,
+          "endLine": 62,
+          "column": 12,
+          "endColumn": 19,
+          "sourceFile": "src\\screens\\FormulaireInscription\\FormulaireInscription.jsx"
+        }
+      }
+    },
+    {
+      "id": "src\\screens\\FormulaireConnexion\\FormulaireConnexion.jsx:60:12-to-src\\screens\\FormulaireInscription\\FormulaireInscription.jsx",
+      "source": "src\\screens\\FormulaireConnexion\\FormulaireConnexion.jsx",
+      "target": "src\\screens\\FormulaireInscription\\FormulaireInscription.jsx",
+      "data": {
+        "viaRoute": "/inscription",
+        "trigger": {
+          "element": "<Link to=\"/inscription\" className=\"login-link\">\r\n              Connectez-vous\r\n            </Link>",
+          "line": 60,
+          "endLine": 62,
+          "column": 12,
+          "endColumn": 19,
+          "sourceFile": "src\\screens\\FormulaireConnexion\\FormulaireConnexion.jsx"
+        }
+      }
+    }
+  ]
+}

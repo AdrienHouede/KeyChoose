@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Keyboard from './components/Keyboard';
-import FormKeyboard from './components/formKeyboard';
+import FormKeyboard from "./components/FormKeyboard.jsx";
+import { FormulaireInscription } from "./screens/FormulaireInscription";
+import { FormulaireConnexion } from "./screens/FormulaireConnexion";
+import { Navigate } from 'react-router-dom';
 
-function App() {
+function ClavierPage() {
   const [layoutType, setLayoutType] = useState('azerty'); // qwerty, azerty, bepo
   const [format, setFormat] = useState('ISO');            // ISO, ANSI
   const [material, setMaterial] = useState('aluminium');
   const [size, setSize] = useState(80);
 
-  // On déduit le layout à utiliser dynamiquement
   const layout = `${layoutType}_${format.toLowerCase()}`;
 
   return (
@@ -23,7 +26,6 @@ function App() {
         size={size}
         setSize={setSize}
       />
-
       <Keyboard
         layout={layout}
         material={material}
@@ -31,6 +33,19 @@ function App() {
         size={size}
       />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/clavier" />} />
+        <Route path="/clavier" element={<ClavierPage />} />
+        <Route path="/inscription" element={<FormulaireInscription />} />
+        <Route path="/connexion" element={<FormulaireConnexion />} />
+      </Routes>
+    </Router>
   );
 }
 
