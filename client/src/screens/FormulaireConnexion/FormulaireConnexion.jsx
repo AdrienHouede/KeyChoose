@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { EyeOff } from "../../icons/EyeOff";
 import "../../css/formulaireInscription.css";
 import clavierImage from "../../image/jpeg/inscription_keyboards.jpg";
 import { Link } from "react-router-dom";

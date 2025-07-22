@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Keyboard from './components/Keyboard';
+import Header from './components/Header';
 import FormKeyboard from "./components/FormKeyboard.jsx";
 import { FormulaireInscription } from "./screens/FormulaireInscription";
 import { FormulaireConnexion } from "./screens/FormulaireConnexion";
 import { Navigate } from 'react-router-dom';
+import { Profil } from "./screens/Profil";
+import { Description } from "./screens/Description";
+import { Contact } from "./screens/Contact";
 
 function ClavierPage() {
   const [layoutType, setLayoutType] = useState('azerty'); // qwerty, azerty, bepo
@@ -39,11 +43,15 @@ function ClavierPage() {
 function App() {
   return (
     <Router>
+      <Header />
       <Routes>
-        <Route path="/" element={<Navigate to="/clavier" />} />
+        <Route path="/" element={<Navigate to="/profil" />} />
+        <Route path="/profil" element={<Profil />} />
         <Route path="/clavier" element={<ClavierPage />} />
         <Route path="/inscription" element={<FormulaireInscription />} />
         <Route path="/connexion" element={<FormulaireConnexion />} />
+        <Route path="/description" element={<Description />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
   );
