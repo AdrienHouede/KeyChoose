@@ -54,7 +54,7 @@ function AppContent() {
         <Route path="/clavier" element={<ClavierPage />} />
         <Route path="/inscription" element={<FormulaireInscription />} />
         <Route path="/connexion" element={<FormulaireConnexion />} />
-        <Route path="/description" element={<Description />} />
+        <Route path="/recommandation/:id" element={<Description />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </>

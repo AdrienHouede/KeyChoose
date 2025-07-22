@@ -18,8 +18,9 @@ export const Header = () => {
       <nav className="nav-links">
         <Link to="/clavier">Nouveau clavier</Link> |{" "}
         <Link to="/profil">Profil</Link> |{" "}
-        <Link to="/description">Description</Link> |{" "}
-        <Link to="/contact">Contact</Link>
+        <Link to="/contact">Contact</Link> |{" "}
+        <Link to="/inscription" className="nav-link">Inscription</Link> |{" "}
+        <Link to="/connexion" className="nav-link">Connexion</Link>
       </nav>
     </header>
   );

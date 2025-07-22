@@ -1,10 +1,67 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import "../../css/profil.css";
 
 export const Profil = () => {
+  // Récupérer userId depuis localStorage
+  const userId = localStorage.getItem('userId');
+  const [profiles, setProfiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!userId) {
+      setError("Utilisateur non authentifié.");
+      setIsLoading(false);
+      return;
+    }
+
+    const fetchProfiles = async () => {
+      setError("");
+      setIsLoading(true);
+
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`http://localhost:3000/api/profile/${userId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token ? `Bearer ${token}` : undefined,
+          },
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Impossible de récupérer les profils");
+        }
+        // Assurer un tableau de profils, même si l'API renvoie un objet unique
+        let profilesData = [];
+        if (Array.isArray(data)) {
+          profilesData = data;
+        } else if (data.profiles) {
+          profilesData = data.profiles;
+        } else {
+          profilesData = [data];
+        }
+        setProfiles(profilesData);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProfiles();
+  }, [userId]);
+
+  if (isLoading) {
+    return <p className="loading-text">Chargement des profils...</p>;
+  }
+
+  if (error) {
+    return <p className="error-message">{error}</p>;
+  }
+
   return (
     <main className="body">
       <section className="section-profiles">
-        {/* Ajout d'une intro avec un visuel */}
         <div className="profil-intro">
           <img
             src="https://cdn-icons-png.flaticon.com/512/2790/2790875.png"
@@ -23,37 +80,32 @@ export const Profil = () => {
         <h2 className="section-title">Profils</h2>
 
         <div className="profiles">
-          <article className="profile-card">
-            <img
-              src="https://c.animaapp.com/mde8zko6OPQNr5/img/clavier-png-2.png"
-              alt="Clavier gaming"
-              className="keyboard-img"
-            />
-            <h3>Profil gaming</h3>
-            <p>
-              Type : Qwerty<br />
-              Layout : ANSI<br />
-              Taille : 100%<br />
-              Matériau : Alu
-            </p>
-            <button className="btn">Consulter</button>
-          </article>
-
-          <article className="profile-card">
-            <img
-              src="https://c.animaapp.com/mde8zko6OPQNr5/img/clavier-png-2.png"
-              alt="Clavier bureautique"
-              className="keyboard-img"
-            />
-            <h3>Profil bureautique</h3>
-            <p>
-              Type : Azerty<br />
-              Layout : ISO<br />
-              Taille : 125%<br />
-              Matériau : Plastique
-            </p>
-            <button className="btn">Consulter</button>
-          </article>
+          {profiles.length > 0 ? (
+            profiles.map((profile) => (
+              <article key={profile.id} className="profile-card">
+                <img
+                  src={profile.imageUrl || "https://c.animaapp.com/mde8zko6OPQNr5/img/clavier-png-2.png"}
+                  alt={`Clavier ${profile.name || profile.type}`}
+                  className="keyboard-img"
+                />
+                <h3>{profile.name || `Profil ${profile.id}`}</h3>
+                <p>
+                  Type : {profile.type}<br />
+                  Layout : {profile.layout}<br />
+                  Taille : {profile.size}<br />
+                  Matériau : {profile.material}
+                </p>
+                <button
+                  className="btn"
+                  onClick={() => window.location.href = `/recommandation/${profile.id}`}
+                >
+                  Consulter
+                </button>
+              </article>
+            ))
+          ) : (
+            <p>Aucun profil disponible.</p>
+          )}
         </div>
       </section>
     </main>
