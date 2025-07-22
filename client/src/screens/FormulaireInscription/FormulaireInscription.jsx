@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { EyeOff } from "../../icons/EyeOff";
 import "../../css/formulaireInscription.css";
 import { Link } from 'react-router-dom';
 

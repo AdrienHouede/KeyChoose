@@ -1,73 +1,51 @@
-import React from 'react';
+import React from "react";
 
 function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, setMaterial, size, setSize }) {
   const handleSizeChange = (e) => {
     const val = parseInt(e.target.value, 10);
-    // Force à 80 ou 100 uniquement
-    if (val < 90) {
-      setSize(80);
-    } else {
-      setSize(100);
-    }
+    setSize(val < 90 ? 80 : 100);
   };
 
   return (
-    <form style={{ marginBottom: '2rem' }}>
+    <form className="keyboard-form">
       <fieldset>
-        <legend><strong>Disposition</strong></legend>
-        <label>
-          <input
-            type="radio"
-            name="layout"
-            value="azerty"
-            checked={layoutType === 'azerty'}
-            onChange={(e) => setLayoutType(e.target.value)}
-          /> Azerty
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="layout"
-            value="qwerty"
-            checked={layoutType === 'qwerty'}
-            onChange={(e) => setLayoutType(e.target.value)}
-          /> Qwerty
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="layout"
-            value="bepo"
-            checked={layoutType === 'bepo'}
-            onChange={(e) => setLayoutType(e.target.value)}
-          /> Bepo
-        </label>
+        <legend>Disposition</legend>
+        <div className="option-group">
+          {["azerty", "qwerty", "bepo"].map((type) => (
+            <label key={type}>
+              <input
+                type="radio"
+                name="layout"
+                value={type}
+                checked={layoutType === type}
+                onChange={(e) => setLayoutType(e.target.value)}
+              />
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </label>
+          ))}
+        </div>
       </fieldset>
 
       <fieldset>
-        <legend><strong>Format</strong></legend>
-        <label>
-          <input
-            type="radio"
-            name="format"
-            value="ISO"
-            checked={format === 'ISO'}
-            onChange={(e) => setFormat(e.target.value)}
-          /> ISO
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="format"
-            value="ANSI"
-            checked={format === 'ANSI'}
-            onChange={(e) => setFormat(e.target.value)}
-          /> ANSI
-        </label>
+        <legend>Format</legend>
+        <div className="option-group">
+          {["ISO", "ANSI"].map((f) => (
+            <label key={f}>
+              <input
+                type="radio"
+                name="format"
+                value={f}
+                checked={format === f}
+                onChange={(e) => setFormat(e.target.value)}
+              />
+              {f}
+            </label>
+          ))}
+        </div>
       </fieldset>
 
       <fieldset>
-        <legend><strong>Matériau</strong></legend>
+        <legend>Matériau</legend>
         <select value={material} onChange={(e) => setMaterial(e.target.value)}>
           <option value="plastique">Plastique</option>
           <option value="bois">Bois</option>
@@ -76,7 +54,7 @@ function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, 
       </fieldset>
 
       <fieldset>
-        <legend><strong>Taille du clavier</strong></legend>
+        <legend>Taille du clavier</legend>
         <input
           type="range"
           min="80"
@@ -85,10 +63,10 @@ function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, 
           value={size}
           onChange={handleSizeChange}
         />
-        <span>
+        <span className="size-label">
           {size === 100
-            ? 'Taille standard (avec pavé numérique)'
-            : 'Taille compacte (sans pavé numérique)'}
+            ? "Taille standard (avec pavé numérique)"
+            : "Taille compacte (sans pavé numérique)"}
         </span>
       </fieldset>
     </form>
