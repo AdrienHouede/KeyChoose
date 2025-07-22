@@ -37,7 +37,6 @@ export const FormulaireInscription = () => {
                 placeholder="Mot de passe"
                 className="password-field"
               />
-              <EyeOff className="w-6 h-6 text-[#9a9a9a]" />
             </div>
 
             {/* Bouton */}
