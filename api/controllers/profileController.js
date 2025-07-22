@@ -2,14 +2,14 @@ const { connection } = require('../config/db');
 const { logAction } = require('../utils/logger');
 
 const createProfile = (req, res) => {
-  const { attribute_Id } = req.body;
-  if (!attribute_Id) {
-    return res.status(400).json({ error: 'attribute_Id requis' });
+  const { type, layout, size, switchval, connectivity, rgb, material, price } = req.body;
+  if (!type || !layout || !size || !material || !price){
+    return res.status(400).json({ error: 'Champs requis manquants' });
   }
 
   connection.query(
-    'INSERT INTO PROFILE (attribute_Id, created) VALUES (?, NOW())',
-    [attribute_Id],
+    'INSERT INTO ATTRIBUTE (type, layout, size, switch, connectivity, rgb, material, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [type, layout, size, switchval, connectivity, rgb, material, price],
     (err, result) => {
       if (err) {
         return res.status(500).json({ error: 'Erreur création profil', details: err.message });
@@ -17,8 +17,20 @@ const createProfile = (req, res) => {
       if (result.affectedRows === 0) {
         return res.status(500).json({ error: 'Aucun profil créé' });
       }
-      logAction(req.user?.id, 'CREATE_PROFILE', `id=${result.insertId}`);
-      res.status(201).json({ id: result.insertId, attribute_Id });
+      connection.query(
+        'INSERT INTO PROFILE (user_Id, attribute_Id) VALUES (?, ?)',
+        [req.user.id, result.insertId],
+        (err, result) => {
+          if (err) {
+            return res.status(500).json({ error: 'Erreur création profil', details: err.message });
+          }
+          if (result.affectedRows === 0) {
+            return res.status(500).json({ error: 'Aucun profil créé' });
+          }
+          logAction(req.user?.id, 'CREATE_PROFILE', `id=${result.insertId}`);
+          res.status(201).json({ id: result.insertId, attribute_Id });
+        }
+      );
     }
   );
 };
@@ -30,7 +42,7 @@ const getProfile = (req, res) => {
   }
 
   connection.query(
-    'SELECT * FROM PROFILE WHERE id = ?',
+    'SELECT * FROM PROFILE P INNER JOIN ATTRIBUTE A ON P.attribute_Id = A.id WHERE P.id = ?',
     [id],
     (err, rows) => {
       if (err) {
@@ -52,8 +64,8 @@ const updateProfile = (req, res) => {
   }
 
   connection.query(
-    'UPDATE PROFILE SET attribute_Id = ? WHERE id = ?',
-    [attribute_Id, id],
+    'UPDATE ATTRIBUTE SET type = ?, layout = ?, size = ?, switch = ?, connectivity = ?, rgb = ?, material = ?, price = ? WHERE id = ?',
+    [attribute_Id.type, attribute_Id.layout, attribute_Id.size, attribute_Id.switch, attribute_Id.connectivity, attribute_Id.rgb, attribute_Id.material, attribute_Id.price, attribute_Id.id],
     (err, result) => {
       if (err) {
         return res.status(500).json({ error: 'Erreur mise à jour profil', details: err.message });

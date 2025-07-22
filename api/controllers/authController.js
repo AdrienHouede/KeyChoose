@@ -22,9 +22,9 @@ const createUserAsync = (email, hash) =>
 
 const register = async (req, res) => {
   try {
-    const { email, password, roleId } = req.body;
-    if (!email || !password || !roleId) {
-      return res.status(400).json({ error: "Champs requis manquants : email, mot de passe et rôle" });
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: "Champs requis manquants : email et mot de passe" });
     }
 
     const existing = await findUserByEmailAsync(email);
@@ -72,7 +72,7 @@ const login = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    return res.json({ message: "Authentification réussie", token, expiresIn: 7 * 24 * 3600 });
+    return res.json({ message: "Authentification réussie", userId: user.id, token, expiresIn: 7 * 24 * 3600 });
   } catch (err) {
     return res.status(500).json({ error: "Erreur serveur lors de la connexion", details: err.message });
   }
