@@ -1,50 +1,49 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Keyboard from './components/Keyboard';
-import FormKeyboard from "./components/FormKeyboard.jsx";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import Header from './components/Header';
+import Footer from './components/Footer';
+import ConditionsUtilisation from './components/ConditionsUtilisation';
+import MentionsLegales from './components/MentionsLegales';
+import GuideUtilisateur from './components/GuideUtilisateur';
 import { FormulaireInscription } from "./screens/FormulaireInscription";
 import { FormulaireConnexion } from "./screens/FormulaireConnexion";
 import { Navigate } from 'react-router-dom';
+import { Profil } from "./screens/Profil";
+import { Description } from "./screens/Description";
+import { Contact } from "./screens/Contact";
+import { CreationClavier } from './screens/CreationClavier/CreationClavier.jsx';
+import { Admin } from './screens/Admin';
 
-function ClavierPage() {
-  const [layoutType, setLayoutType] = useState('azerty'); // qwerty, azerty, bepo
-  const [format, setFormat] = useState('ISO');            // ISO, ANSI
-  const [material, setMaterial] = useState('aluminium');
-  const [size, setSize] = useState(80);
-
-  const layout = `${layoutType}_${format.toLowerCase()}`;
+function AppContent() {
+  const location = useLocation();
+  const hideHeaderRoutes = ['/inscription', '/connexion'];
+  const shouldHideHeader = hideHeaderRoutes.includes(location.pathname);
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <FormKeyboard
-        layoutType={layoutType}
-        setLayoutType={setLayoutType}
-        format={format}
-        setFormat={setFormat}
-        material={material}
-        setMaterial={setMaterial}
-        size={size}
-        setSize={setSize}
-      />
-      <Keyboard
-        layout={layout}
-        material={material}
-        format={format}
-        size={size}
-      />
-    </div>
+    <>
+      {!shouldHideHeader && <Header />}
+      <Routes>
+        <Route path="/" element={<Navigate to="/connexion" />} />
+        <Route path="/profil" element={<Profil />} />
+        <Route path="/clavier" element={<CreationClavier />} />
+        <Route path="/inscription" element={<FormulaireInscription />} />
+        <Route path="/connexion" element={<FormulaireConnexion />} />
+        <Route path="/recommandation/:id" element={<Description />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/cgu" element={<ConditionsUtilisation />} />
+        <Route path="/mentions-legales" element={<MentionsLegales />} />
+        <Route path="/guide-utilisateur" element={<GuideUtilisateur />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+      {!shouldHideHeader && <Footer />}
+    </>
   );
 }
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to="/clavier" />} />
-        <Route path="/clavier" element={<ClavierPage />} />
-        <Route path="/inscription" element={<FormulaireInscription />} />
-        <Route path="/connexion" element={<FormulaireConnexion />} />
-      </Routes>
+      <AppContent />
     </Router>
   );
 }

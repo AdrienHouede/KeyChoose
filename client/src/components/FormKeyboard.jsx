@@ -1,96 +1,146 @@
-import React from 'react';
+import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 
-function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, setMaterial, size, setSize }) {
-  const handleSizeChange = (e) => {
-    const val = parseInt(e.target.value, 10);
-    // Force à 80 ou 100 uniquement
-    if (val < 90) {
-      setSize(80);
-    } else {
-      setSize(100);
+function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, setMaterial, size, setSize, onSubmit }) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (onSubmit) {
+      onSubmit({ layoutType, format, material, size });
+    }
+  };
+
+  
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const body = {
+        type: layoutType.toUpperCase(),
+        layout: format,
+        size,
+        switch: "",
+        connectivity: "",
+        rgb: 0,
+        material: material.toUpperCase(),
+        price: 1
+      };
+      const res = await fetch('http://localhost:3000/api/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token && { Authorization: `Bearer ${token}` })
+        },
+        body: JSON.stringify(body)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Erreur création profile');
+      // rediriger vers la page profile ou home
+      navigate(`/profil`);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form style={{ marginBottom: '2rem' }}>
-      <fieldset>
-        <legend><strong>Disposition</strong></legend>
-        <label>
-          <input
-            type="radio"
-            name="layout"
-            value="azerty"
-            checked={layoutType === 'azerty'}
-            onChange={(e) => setLayoutType(e.target.value)}
-          /> Azerty
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="layout"
-            value="qwerty"
-            checked={layoutType === 'qwerty'}
-            onChange={(e) => setLayoutType(e.target.value)}
-          /> Qwerty
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="layout"
-            value="bepo"
-            checked={layoutType === 'bepo'}
-            onChange={(e) => setLayoutType(e.target.value)}
-          /> Bepo
-        </label>
-      </fieldset>
+    <form className="form-keyboard" onSubmit={handleSubmit}>
+      {/* Disposition */}
+      <div className="field-group">
+        <span className="legend">Disposition</span>
+        <div className="options layout-options">
+          {['qwerty', 'azerty', 'bepo'].map((key) => (
+            <label key={key} className={`option ${layoutType === key ? 'active' : ''}`}>
+              <input
+                type="radio"
+                name="layout"
+                value={key}
+                checked={layoutType === key}
+                onChange={() => setLayoutType(key)}
+              />
+              <span className="option-label">{key.toUpperCase()}</span>
+            </label>
+          ))}
+        </div>
+      </div>
 
-      <fieldset>
-        <legend><strong>Format</strong></legend>
-        <label>
-          <input
-            type="radio"
-            name="format"
-            value="ISO"
-            checked={format === 'ISO'}
-            onChange={(e) => setFormat(e.target.value)}
-          /> ISO
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="format"
-            value="ANSI"
-            checked={format === 'ANSI'}
-            onChange={(e) => setFormat(e.target.value)}
-          /> ANSI
-        </label>
-      </fieldset>
+      {/* Matériau */}
+      <div className="field-group">
+        <span className="legend">Matériau</span>
+        <div className="options material-options">
+          {['aluminium', 'bois', 'plastique'].map((key) => (
+            <label key={key} className={`option ${material === key ? 'active' : ''}`}>
+              <input
+                type="radio"
+                name="material"
+                value={key}
+                checked={material === key}
+                onChange={() => setMaterial(key)}
+              />
+              <span className="option-label">
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
 
-      <fieldset>
-        <legend><strong>Matériau</strong></legend>
-        <select value={material} onChange={(e) => setMaterial(e.target.value)}>
-          <option value="plastique">Plastique</option>
-          <option value="bois">Bois</option>
-          <option value="aluminium">Aluminium</option>
-        </select>
-      </fieldset>
+      {/* Format */}
+      <div className="field-group">
+        <span className="legend">Format</span>
+        <div className="options format-options">
+          {['ISO', 'ANSI'].map((f) => (
+            <label key={f} className={`option ${format === f ? 'active' : ''}`}>
+              <input
+                type="radio"
+                name="format"
+                value={f}
+                checked={format === f}
+                onChange={() => setFormat(f)}
+              />
+              <span className="option-label">{f}</span>
+            </label>
+          ))}
+        </div>
+      </div>
 
-      <fieldset>
-        <legend><strong>Taille du clavier</strong></legend>
-        <input
-          type="range"
-          min="80"
-          max="100"
-          step="20"
-          value={size}
-          onChange={handleSizeChange}
-        />
-        <span>
-          {size === 100
-            ? 'Taille standard (avec pavé numérique)'
-            : 'Taille compacte (sans pavé numérique)'}
-        </span>
-      </fieldset>
+      {/* Taille du clavier */}
+      <div className="field-group">
+        <span className="legend">Taille du clavier</span>
+        <div className="slider-wrapper">
+          <input
+            type="range"
+            min="80"
+            max="100"
+            step="20"
+            value={size}
+            onChange={(e) => setSize(parseInt(e.target.value, 10))}
+            className="styled-range"
+          />
+          <div className="marks">
+            <span>80%</span>
+            <span>100%</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Bouton envoyer vers API */}
+      <div className="create-button-container">
+        {error && <p className="error-message">{error}</p>}
+          <button
+            className="submit-button"
+            disabled={loading}
+            onClick={handleCreate}
+          >
+          {loading ? 'Création...' : 'Créer le clavier'}
+        </button>
+      </div>
     </form>
   );
 }
