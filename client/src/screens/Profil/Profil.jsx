@@ -1,5 +1,7 @@
+import React from "react";
+import clavier_accueil from "../../image/png/clavier_accueil.png"
+import illustration from "../../image/png/illustration_clavier.png"
 import React, { useState, useEffect } from "react";
-import "../../css/profil.css";
 
 export const Profil = () => {
   // Récupérer userId depuis localStorage
@@ -61,51 +63,65 @@ export const Profil = () => {
 
   return (
     <main className="body">
-      <section className="section-profiles">
-        <div className="profil-intro">
+      {/* Bannière avec image de fond */}
+      <section className="banner">
+        <img
+          src={clavier_accueil}
+          alt="Clavier de fond"
+          className="banner-img"
+        />
+        <div className="banner-content">
           <img
-            src="https://cdn-icons-png.flaticon.com/512/2790/2790875.png"
-            alt="Icône profil clavier"
-            className="profil-intro-icon"
+            src="https://c.animaapp.com/mdeaibpn2YVHFn/img/image-5.png"
+            alt="Logo clavier"
+            className="banner-icon"
           />
-          <div>
-            <h1>Choisissez votre profil</h1>
-            <p className="profil-intro-text">
-              Chaque profil est conçu pour un usage spécifique : gaming, bureautique ou hybride.
-              Explorez les configurations pour trouver le clavier qui vous correspond.
-            </p>
-          </div>
+          <h1 className="banner-title">KeyChoose</h1>
         </div>
+      </section>
 
-        <h2 className="section-title">Profils</h2>
+      <section className="section-profiles">
+        <h2 className="section-title">
+          <img
+            src="https://c.animaapp.com/mdeaibpn2YVHFn/img/image-5.png"
+            alt="Icône profil clavier"
+            className="profil-title-icon"
+          />
+          Profils
+        </h2>
 
         <div className="profiles">
-          {profiles.length > 0 ? (
-            profiles.map((profile) => (
-              <article key={profile.id} className="profile-card">
-                <img
-                  src={profile.imageUrl || "https://c.animaapp.com/mde8zko6OPQNr5/img/clavier-png-2.png"}
-                  alt={`Clavier ${profile.name || profile.type}`}
-                  className="keyboard-img"
-                />
-                <h3>{profile.name || `Profil ${profile.id}`}</h3>
-                <p>
-                  Type : {profile.type}<br />
-                  Layout : {profile.layout}<br />
-                  Taille : {profile.size}<br />
-                  Matériau : {profile.material}
-                </p>
-                <button
-                  className="btn"
-                  onClick={() => window.location.href = `/recommandation/${profile.id}`}
-                >
-                  Consulter
-                </button>
-              </article>
-            ))
-          ) : (
-            <p>Aucun profil disponible.</p>
-          )}
+          <article className="profile-card">
+            <img
+              src={illustration}
+              alt="Clavier gaming"
+              className="keyboard-img"
+            />
+            <h3>Profil gaming</h3>
+            <p>
+              <strong>Type</strong> : Qwerty<br />
+              <strong>Layout</strong> : ANSI<br />
+              <strong>Taille</strong> : 100%<br />
+              <strong>Matériau</strong> : Alu
+            </p>
+            <button className="btn">Consulter</button>
+          </article>
+
+          <article className="profile-card">
+            <img
+              src={illustration}
+              alt="Clavier bureautique"
+              className="keyboard-img"
+            />
+            <h3>Profil bureautique</h3>
+            <p>
+              <strong>Type</strong> : Azerty<br />
+              <strong>Layout</strong> : ISO<br />
+              <strong>Taille</strong> : 125%<br />
+              <strong>Matériau</strong> : Plastique
+            </p>
+            <button className="btn">Consulter</button>
+          </article>
         </div>
       </section>
     </main>
