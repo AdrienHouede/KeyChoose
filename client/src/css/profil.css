@@ -26,7 +26,6 @@ body {
 .nav-links {
   font-size: 1rem;
   color: #555;
-  flex-grow: 1;
   text-align: center;
 }
 
