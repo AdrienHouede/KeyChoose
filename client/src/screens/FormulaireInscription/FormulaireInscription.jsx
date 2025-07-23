@@ -1,14 +1,43 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import "../../css/formulaireInscription.css";
-import { Link } from 'react-router-dom';
 
 export const FormulaireInscription = () => {
   const [email, setEmail] = useState("");
-  const [motDePasse, setMotDePasse] = useState("");
+  const [password, setMotDePasse] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          roleId: 1,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de l\'inscription');
+      }
+
+      // En cas de succès, redirige vers la page de connexion
+      navigate('/connexion');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
-    <div className="form-container">
-      {/* Partie gauche */}
+    <form className="form-container" onSubmit={handleSubmit}>
       <div className="form-left">
         <div className="form-title">KeyChoose</div>
 
@@ -25,6 +54,7 @@ export const FormulaireInscription = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="exemple@gmail.com"
                 className="input-field"
+                required
               />
             </div>
 
@@ -32,12 +62,16 @@ export const FormulaireInscription = () => {
             <div className="password-group">
               <input
                 type="password"
-                value={motDePasse}
+                value={password}
                 onChange={(e) => setMotDePasse(e.target.value)}
                 placeholder="Mot de passe"
                 className="password-field"
+                required
               />
             </div>
+
+            {/* Erreur */}
+            {error && <p className="error-message">{error}</p>}
 
             {/* Bouton */}
             <button className="submit-button" type="submit">
@@ -54,7 +88,7 @@ export const FormulaireInscription = () => {
 
           {/* Lien de connexion */}
           <p className="login-text">
-            Vous avez déjà un compte ?{" "}
+            Vous avez déjà un compte ?{' '}
             <Link to="/connexion" className="login-link">
               Connectez-vous
             </Link>
@@ -67,6 +101,6 @@ export const FormulaireInscription = () => {
         <div className="image-block image-left"></div>
         <div className="image-block image-right"></div>
       </div>
-    </div>
+    </form>
   );
 };

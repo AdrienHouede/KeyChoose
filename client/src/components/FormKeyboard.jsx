@@ -1,74 +1,86 @@
 import React from "react";
 
 function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, setMaterial, size, setSize }) {
-  const handleSizeChange = (e) => {
-    const val = parseInt(e.target.value, 10);
-    setSize(val < 90 ? 80 : 100);
-  };
-
   return (
-    <form className="keyboard-form">
-      <fieldset>
-        <legend>Disposition</legend>
-        <div className="option-group">
-          {["azerty", "qwerty", "bepo"].map((type) => (
-            <label key={type}>
+    <form className="form-keyboard">
+      {/* Disposition */}
+      <div className="field-group">
+        <span className="legend">Disposition</span>
+        <div className="options layout-options">
+          {['qwerty', 'azerty', 'bepo'].map((key) => (
+            <label key={key} className={`option ${layoutType === key ? 'active' : ''}`}>
               <input
                 type="radio"
                 name="layout"
-                value={type}
-                checked={layoutType === type}
-                onChange={(e) => setLayoutType(e.target.value)}
+                value={key}
+                checked={layoutType === key}
+                onChange={() => setLayoutType(key)}
               />
-              {type.charAt(0).toUpperCase() + type.slice(1)}
+              <span className="option-label">{key.toUpperCase()}</span>
             </label>
           ))}
         </div>
-      </fieldset>
+      </div>
 
-      <fieldset>
-        <legend>Format</legend>
-        <div className="option-group">
-          {["ISO", "ANSI"].map((f) => (
-            <label key={f}>
+      {/* Matériau */}
+      <div className="field-group">
+        <span className="legend">Matériau</span>
+        <div className="options material-options">
+          {['aluminium', 'bois', 'plastique'].map((key) => (
+            <label key={key} className={`option ${material === key ? 'active' : ''}`}>
+              <input
+                type="radio"
+                name="material"
+                value={key}
+                checked={material === key}
+                onChange={() => setMaterial(key)}
+              />
+              <span className="option-label">
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Format */}
+      <div className="field-group">
+        <span className="legend">Format</span>
+        <div className="options format-options">
+          {['ISO', 'ANSI'].map((f) => (
+            <label key={f} className={`option ${format === f ? 'active' : ''}`}>
               <input
                 type="radio"
                 name="format"
                 value={f}
                 checked={format === f}
-                onChange={(e) => setFormat(e.target.value)}
+                onChange={() => setFormat(f)}
               />
-              {f}
+              <span className="option-label">{f}</span>
             </label>
           ))}
         </div>
-      </fieldset>
+      </div>
 
-      <fieldset>
-        <legend>Matériau</legend>
-        <select value={material} onChange={(e) => setMaterial(e.target.value)}>
-          <option value="plastique">Plastique</option>
-          <option value="bois">Bois</option>
-          <option value="aluminium">Aluminium</option>
-        </select>
-      </fieldset>
-
-      <fieldset>
-        <legend>Taille du clavier</legend>
-        <input
-          type="range"
-          min="80"
-          max="100"
-          step="20"
-          value={size}
-          onChange={handleSizeChange}
-        />
-        <span className="size-label">
-          {size === 100
-            ? "Taille standard (avec pavé numérique)"
-            : "Taille compacte (sans pavé numérique)"}
-        </span>
-      </fieldset>
+      {/* Taille du clavier */}
+      <div className="field-group">
+        <span className="legend">Taille du clavier</span>
+        <div className="slider-wrapper">
+          <input
+            type="range"
+            min="80"
+            max="100"
+            step="20"
+            value={size}
+            onChange={(e) => setSize(parseInt(e.target.value, 10))}
+            className="styled-range"
+          />
+          <div className="marks">
+            <span>80%</span>
+            <span>100%</span>
+          </div>
+        </div>
+      </div>
     </form>
   );
 }

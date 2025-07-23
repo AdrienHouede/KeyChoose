@@ -1,8 +1,8 @@
 const { connection } = require('../config/db');
 
-const createUser = (email, hashedPassword, role_Id, callback) => {
-    const query = 'INSERT INTO UTILISATEUR (email, password, role_Id) VALUES (?, ?, 2)';
-    connection.query(query, [email, hashedPassword, role_Id], callback);
+const createUser = (email, hashedPassword, callback) => {
+    const query = 'INSERT INTO UTILISATEUR (email, password, role_Id) VALUES (?, ?, 1)';
+    connection.query(query, [email, hashedPassword], callback);
 };
 
 const findUserByEmail = (email, callback) => {
