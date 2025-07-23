@@ -62,6 +62,13 @@
       "routes": [
         "/guide-utilisateur"
       ]
+    },
+    {
+      "id": "src/screens/Admin/Admin.jsx",
+      "label": "Admin",
+      "routes": [
+        "/logs"
+      ]
     }
   ],
   "edges": [
@@ -88,7 +95,7 @@
       "data": {
         "viaRoute": "/connexion",
         "trigger": {
-          "element": "<Link to=\"/connexion\" className=\"login-link\">\r\n              Connectez-vous\r\n            </Link>",
+          "element": "<Link to=\"/connexion\" className=\"login-link\">\n              Connectez-vous\n            </Link>",
           "line": 92,
           "endLine": 94,
           "column": 12,
@@ -120,7 +127,7 @@
       "data": {
         "viaRoute": "/inscription",
         "trigger": {
-          "element": "<Link to=\"/inscription\" className=\"login-link\">\r\n              Créer le\r\n            </Link>",
+          "element": "<Link to=\"/inscription\" className=\"login-link\">\n              Créer le\n            </Link>",
           "line": 101,
           "endLine": 103,
           "column": 12,

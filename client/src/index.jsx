@@ -11,6 +11,7 @@ import './css/formkeyboard.css'
 import './css/header.css'
 import './css/footer.css'
 import './css/pageContainer.css'
+import './css/admin.css'
 
 createRoot(document.getElementById("app")).render(
   <React.StrictMode>

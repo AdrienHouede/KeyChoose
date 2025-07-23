@@ -1,30 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import illustration from "../../image/png/illustration_clavier.png";
 import Keyboard from "../../components/Keyboard";
 
 export const Description = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
+  const [recs, setRecs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRecLoading, setIsRecLoading] = useState(true);
   const [error, setError] = useState("");
+  const [recError, setRecError] = useState("");
 
   useEffect(() => {
     const fetchProfile = async () => {
       setIsLoading(true);
       setError("");
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         const res = await fetch(`http://localhost:3000/api/profile/${id}`, {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             ...(token && { Authorization: `Bearer ${token}` })
           }
         });
+        if (res.status === 401 || res.status === 403) {
+          navigate("/");
+          return;
+        }
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Erreur récupération du profil');
-        // data may be object or { profiles: [...] }
-        const prof = Array.isArray(data) ? data[0] : data.profiles ? data.profiles[0] : data;
+        if (!res.ok) throw new Error(data.error || "Erreur récupération du profil");
+        const prof = Array.isArray(data)
+          ? data[0]
+          : data.profiles
+          ? data.profiles[0]
+          : data;
         setProfile(prof);
       } catch (err) {
         setError(err.message);
@@ -33,7 +44,36 @@ export const Description = () => {
       }
     };
     fetchProfile();
-  }, [id]);
+  }, [id, navigate]);
+
+  useEffect(() => {
+    if (!profile) return;
+    const fetchRecs = async () => {
+      setIsRecLoading(true);
+      setRecError("");
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(`http://localhost:3000/api/recommendation/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            ...(token && { Authorization: `Bearer ${token}` })
+          }
+        });
+        if (res.status === 401 || res.status === 403) {
+          navigate("/");
+          return;
+        }
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Erreur récupération recommandations");
+        setRecs(data);
+      } catch (err) {
+        setRecError(err.message);
+      } finally {
+        setIsRecLoading(false);
+      }
+    };
+    fetchRecs();
+  }, [profile, navigate]);
 
   if (isLoading) return <p className="loading-text">Chargement du profil...</p>;
   if (error) return <p className="error-message">{error}</p>;
@@ -41,7 +81,6 @@ export const Description = () => {
 
   return (
     <div className="description-container">
-      {/* Header */}
       <div className="profil-header">
         <img
           src="https://c.animaapp.com/mdeaibpn2YVHFn/img/image-5.png"
@@ -51,7 +90,6 @@ export const Description = () => {
         <h1>{profile.name || `Profil ${profile.id}`}</h1>
       </div>
 
-      {/* Preview */}
       <div className="keyboard-preview">
         <Keyboard
           layout={`${profile.type}_${profile.layout}`.toLowerCase()}
@@ -67,62 +105,40 @@ export const Description = () => {
         </div>
       </div>
 
-      {/* Navigation arrows (if needed) */}
-      <div className="navigation-arrows">
-        <span className="arrow" onClick={() => { /* TODO: prev */ }}>&lt;</span>
-        <span className="arrow" onClick={() => { /* TODO: next */ }}>&gt;</span>
-      </div>
-
-      {/* Product suggestions - static or dynamic */}
-      <div className="product-grid">
-        <div className="product-card">
-          <img
-            src="https://c.animaapp.com/mdeaibpn2YVHFn/img/image--2--1.png"
-            alt="Asus ROG"
-          />
-          <h2>Asus ROG Strix Scope II 96 Wireless</h2>
-          <p>
-            Type : Qwerty<br />
-            Layout : ANSI<br />
-            Taille : 100%<br />
-            Matériau : Alu
-          </p>
-          <div className="compatibility">Compatible : 100 %</div>
-          <button className="buy-button">Acheter</button>
-        </div>
-
-        <div className="product-card">
-          <img
-            src="https://c.animaapp.com/mdeaibpn2YVHFn/img/image--3--1.png"
-            alt="Gamakay NS68"
-          />
-          <h2>Gamakay x NaughShark NS68</h2>
-          <p>
-            Type : Qwerty<br />
-            Layout : ANSI<br />
-            Taille : 75%<br />
-            Matériau : Plastique
-          </p>
-          <div className="compatibility">Compatible : 50 %</div>
-          <button className="buy-button">Acheter</button>
-        </div>
-
-        <div className="product-card">
-          <img
-            src="https://c.animaapp.com/mdeaibpn2YVHFn/img/image--4--1.png"
-            alt="Ducky Zero 6108"
-          />
-          <h2>Ducky Zero 6108</h2>
-          <p>
-            Type : Qwerty<br />
-            Layout : ISO<br />
-            Taille : 100%<br />
-            Matériau : Plastique
-          </p>
-          <div className="compatibility">Compatible : 50 %</div>
-          <button className="buy-button">Acheter</button>
-        </div>
-      </div>
+      <section className="recommendations">
+        {isRecLoading && <p className="loading-text">Chargement des recommandations...</p>}
+        {recError && <p className="error-message">{recError}</p>}
+        {!isRecLoading && !recError && (
+          <div className="product-grid">
+            {recs.length > 0
+              ? recs.map((item) => (
+                  <div key={item.id} className="product-card">
+                    <img src={item.image || illustration} alt={item.nom} />
+                    <h2>{item.nom}</h2>
+                    <p>
+                      Type : {item.type}
+                      <br />
+                      Layout : {item.layout}
+                      <br />
+                      Taille : {item.size}%
+                      <br />
+                      Matériau : {item.material}
+                    </p>
+                    <div className="compatibility">
+                      Compatible : {item.compatibilityScore} %
+                    </div>
+                    <button
+                      className="buy-button"
+                      onClick={() => window.open(item.url, '_blank')}
+                    >
+                      Acheter
+                    </button>
+                  </div>
+                ))
+              : <p>Aucune recommandation.</p>}
+          </div>
+        )}
+      </section>
     </div>
   );
 };
