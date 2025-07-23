@@ -8,7 +8,7 @@ const { recommendKeyboards } = require('../controllers/recommendationController'
  *   post:
  *     tags:
  *       - Recommendation
- *     summary: Obtenir des recommandations de claviers
+ *     summary: Obtenir des recommandations de claviers par rapport à un profil
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -20,6 +20,6 @@ const { recommendKeyboards } = require('../controllers/recommendationController'
  *         description: Erreur serveur
  */
 
-router.post('/', authenticateToken, recommendKeyboards);
+router.get('/:id', authenticateToken, recommendKeyboards);
 
 module.exports = router;
