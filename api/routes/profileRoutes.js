@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const { authenticateToken } = require('../middlewares/authMiddleware');
 const {
-  createProfile,
+  getProfilesByUserId,
   listProfiles,
   getProfile,
+  createProfile,
   updateProfile,
   deleteProfile
 } = require('../controllers/profileController');
