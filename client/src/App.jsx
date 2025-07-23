@@ -12,6 +12,7 @@ import { Profil } from "./screens/Profil";
 import { Description } from "./screens/Description";
 import { Contact } from "./screens/Contact";
 import { CreationClavier } from './screens/CreationClavier/CreationClavier.jsx';
+import { Admin } from './screens/Admin';
 
 function AppContent() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function AppContent() {
         <Route path="/cgu" element={<ConditionsUtilisation />} />
         <Route path="/mentions-legales" element={<MentionsLegales />} />
         <Route path="/guide-utilisateur" element={<GuideUtilisateur />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       {!shouldHideHeader && <Footer />}
     </>

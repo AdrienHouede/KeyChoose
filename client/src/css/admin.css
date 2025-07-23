@@ -1,0 +1,24 @@
+.admin-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.logs-table th,
+.logs-table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+}
+.logs-table th {
+  background: #f0f0f0;
+}
+.loading-text,
+.error-message {
+  text-align: center;
+  margin: 2rem;
+  color: #c00;
+}
