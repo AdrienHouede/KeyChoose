@@ -1,8 +1,15 @@
 import React from "react";
 
-function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, setMaterial, size, setSize }) {
+function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, setMaterial, size, setSize, onSubmit }) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (onSubmit) {
+      onSubmit({ layoutType, format, material, size });
+    }
+  };
+
   return (
-    <form className="form-keyboard">
+    <form className="form-keyboard" onSubmit={handleSubmit}>
       {/* Disposition */}
       <div className="field-group">
         <span className="legend">Disposition</span>
@@ -80,6 +87,13 @@ function FormKeyboard({ layoutType, setLayoutType, format, setFormat, material, 
             <span>100%</span>
           </div>
         </div>
+      </div>
+
+      {/* Bouton de validation */}
+      <div className="form-actions">
+        <button type="submit" className="submit-button">
+          Créer le clavier
+        </button>
       </div>
     </form>
   );

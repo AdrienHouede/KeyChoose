@@ -1,11 +1,23 @@
 /* Container */
+.containerKeyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titleClavier {
+  align-self: flex-start;
+  font-size: 2.5rem;
+  margin: 1.5rem;;
+}
+
 .form-keyboard {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 1.5rem;
   max-width: 700px;
-  margin: 1rem auto 3rem;
+  margin: 2rem auto 1rem;
   background-color: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
