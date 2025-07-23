@@ -6,8 +6,9 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Ajoute ici la logique de déconnexion réelle (clear token, etc.)
-    navigate("/login");
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    navigate('/home');
   };
 
   return (

@@ -17,9 +17,12 @@ const createProfile = (req, res) => {
       if (result.affectedRows === 0) {
         return res.status(500).json({ error: 'Aucun profil créé' });
       }
+
+      const attribute_Id = result.insertId;
+
       connection.query(
         'INSERT INTO PROFILE (user_Id, attribute_Id) VALUES (?, ?)',
-        [req.user.id, result.insertId],
+        [req.user.id, attribute_Id],
         (err, result) => {
           if (err) {
             return res.status(500).json({ error: 'Erreur création profil', details: err.message });
@@ -31,6 +34,22 @@ const createProfile = (req, res) => {
           res.status(201).json({ id: result.insertId, attribute_Id });
         }
       );
+    }
+  );
+};
+
+const listProfiles = (req, res) => {
+  connection.query(
+    'SELECT *, P.id as profileId FROM PROFILE P INNER JOIN ATTRIBUTE A ON P.attribute_Id = A.id WHERE P.user_Id = ?',
+    [req.user.id],
+    (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: 'Erreur lecture profils', details: err.message });
+      }
+      if (rows.length === 0) {
+        return res.status(404).json({ error: 'Aucun profil trouvé' });
+      }
+      res.json(rows);
     }
   );
 };
@@ -103,6 +122,7 @@ const deleteProfile = (req, res) => {
 
 module.exports = {
   createProfile,
+  listProfiles,
   getProfile,
   updateProfile,
   deleteProfile

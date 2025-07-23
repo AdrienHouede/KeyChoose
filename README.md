@@ -1,6 +1,6 @@
 ## KeyChoose
 
-KeyChoose est une application web de recommandation de claviers mécaniques, permettant aux utilisateurs de créer un compte, gérer leur profil, consulter et recommander des produits.
+KeyChoose est une application web de recommandation de claviers mécaniques, permettant aux utilisateurs de créer un compte, gérer leur profil, consulter et recommander des produits, ainsi que de bénéficier d'une interface administrateur pour la gestion avancée.
 
 ---
 
@@ -38,7 +38,7 @@ KeyChoose est une application web de recommandation de claviers mécaniques, per
 1. Cloner le dépôt :
 
    ```bash
-   git clone https://github.com/AdrienHouede/KeyChoose
+   git clone https://github.com/AdrienHouede/KeyChoose.git
    cd KeyChoose/api
    ```
 2. Installer les dépendances :
