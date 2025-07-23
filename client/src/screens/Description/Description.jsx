@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import illustration from "../../image/png/illustration_clavier.png";
-import "../../css/description.css";
+import Keyboard from "../../components/Keyboard";
 
 export const Description = () => {
   const { id } = useParams();
@@ -53,10 +53,11 @@ export const Description = () => {
 
       {/* Preview */}
       <div className="keyboard-preview">
-        <img
-          src={profile.imageUrl || illustration}
-          alt="clavier illustration"
-          className="keyboard-img"
+        <Keyboard
+          layout={`${profile.type}_${profile.layout}`.toLowerCase()}
+          material={profile.material.toLowerCase()}
+          format={profile.layout}
+          size={profile.size}
         />
         <div className="keyboard-info">
           <span className="layout-label">{profile.type}</span>

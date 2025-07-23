@@ -41,6 +41,27 @@
       "routes": [
         "/contact"
       ]
+    },
+    {
+      "id": "src/components/ConditionsUtilisation.jsx",
+      "label": "ConditionsUtilisation",
+      "routes": [
+        "/cgu"
+      ]
+    },
+    {
+      "id": "src/components/MentionsLegales.jsx",
+      "label": "MentionsLegales",
+      "routes": [
+        "/mentions-legales"
+      ]
+    },
+    {
+      "id": "src/components/GuideUtilisateur.jsx",
+      "label": "GuideUtilisateur",
+      "routes": [
+        "/guide-utilisateur"
+      ]
     }
   ],
   "edges": [
@@ -67,12 +88,28 @@
       "data": {
         "viaRoute": "/connexion",
         "trigger": {
-          "element": "<Link to=\"/connexion\" className=\"login-link\">\n              Connectez-vous\n            </Link>",
+          "element": "<Link to=\"/connexion\" className=\"login-link\">\r\n              Connectez-vous\r\n            </Link>",
           "line": 92,
           "endLine": 94,
           "column": 12,
           "endColumn": 19,
           "sourceFile": "src/screens/FormulaireInscription/FormulaireInscription.jsx"
+        }
+      }
+    },
+    {
+      "id": "src/screens/FormulaireConnexion/FormulaireConnexion.jsx:37:6-to-src/screens/Profil/Profil.jsx",
+      "source": "src/screens/FormulaireConnexion/FormulaireConnexion.jsx",
+      "target": "src/screens/Profil/Profil.jsx",
+      "data": {
+        "viaRoute": "/profil",
+        "trigger": {
+          "element": "navigate('/profil')",
+          "line": 37,
+          "endLine": 37,
+          "column": 6,
+          "endColumn": 25,
+          "sourceFile": "src/screens/FormulaireConnexion/FormulaireConnexion.jsx"
         }
       }
     },
@@ -83,7 +120,7 @@
       "data": {
         "viaRoute": "/inscription",
         "trigger": {
-          "element": "<Link to=\"/inscription\" className=\"login-link\">\n              Créer le\n            </Link>",
+          "element": "<Link to=\"/inscription\" className=\"login-link\">\r\n              Créer le\r\n            </Link>",
           "line": 101,
           "endLine": 103,
           "column": 12,
