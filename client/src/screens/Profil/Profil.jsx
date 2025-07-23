@@ -1,4 +1,3 @@
-import React from "react";
 import clavier_accueil from "../../image/png/clavier_accueil.png"
 import illustration from "../../image/png/illustration_clavier.png"
 import React, { useState, useEffect } from "react";
