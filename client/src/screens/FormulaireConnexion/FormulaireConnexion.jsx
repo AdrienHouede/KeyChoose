@@ -34,7 +34,7 @@ export const FormulaireConnexion = () => {
 
       localStorage.setItem('token', data.token);
       localStorage.setItem('userId', data.userId);
-      navigate('/');
+      navigate('/profil');
     } catch (err) {
       setError(err.message);
     } finally {

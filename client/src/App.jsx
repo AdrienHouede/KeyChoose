@@ -22,7 +22,7 @@ function AppContent() {
     <>
       {!shouldHideHeader && <Header />}
       <Routes>
-        <Route path="/" element={<Navigate to="/profil" />} />
+        <Route path="/" element={<Navigate to="/connexion" />} />
         <Route path="/profil" element={<Profil />} />
         <Route path="/clavier" element={<CreationClavier />} />
         <Route path="/inscription" element={<FormulaireInscription />} />

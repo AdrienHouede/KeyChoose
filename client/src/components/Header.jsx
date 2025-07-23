@@ -8,13 +8,13 @@ export const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
-    navigate('/home');
+    navigate('/connexion');
   };
 
   return (
     <header className="header">
       <div className="logo-container">
-        <Link to="/home">
+        <Link to="/profil">
           <img
             src="https://c.animaapp.com/mdeaibpn2YVHFn/img/image-5.png"
             alt="Logo"
@@ -27,9 +27,7 @@ export const Header = () => {
       <nav className="nav-links">
         <Link to="/clavier">Nouveau clavier</Link> |{" "}
         <Link to="/profil">Profil</Link> |{" "}
-        <Link to="/contact">Contact</Link> |{" "}
-        <Link to="/inscription" className="nav-link">Inscription</Link> |{" "}
-        <Link to="/connexion" className="nav-link">Connexion</Link>
+        <Link to="/contact">Contact</Link>{" "}
       </nav>
 
       <div
