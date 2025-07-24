@@ -31,7 +31,7 @@ KeyChoose est une plateforme web et mobile pour recommander des claviers externe
    CLIENT_PORT=5173
    MYSQL_PORT=3306
 
-   JWT_SECRET=Jdne67vb67tfgYVYTF
+   JWT_SECRET=
    MYSQL_HOST=localhost
    MYSQL_USER=root
    MYSQL_ROOT_PASSWORD=
