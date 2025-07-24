@@ -1,74 +1,89 @@
-## KeyChoose
+# KeyChoose
 
-KeyChoose est une application web de recommandation de claviers mécaniques, permettant aux utilisateurs de créer un compte, gérer leur profil, consulter et recommander des produits, ainsi que de bénéficier d'une interface administrateur pour la gestion avancée.
+## Description
+KeyChoose est une plateforme web et mobile pour recommander des claviers externes selon vos préférences techniques (type, layout, matériau, switch, taille), avec une modélisation CSS interactive.
 
----
+## Fonctionnalités principales
+- Inscription & connexion sécurisées (email, mot de passe haché)  
+- Gestion des profils utilisateurs (préférences clavier)  
+- Filtrage dynamique et recommandations personnalisées  
+- Modélisation en temps réel du clavier en CSS  
+- Interface admin pour gestion des claviers et consultation des logs  
+- Documentation Swagger intégrée (`/docs`)
 
-## Table des matières
-
-1. [Fonctionnalités](#fonctionnalités)
-2. [Installation](#installation)
-3. [Utilisation](#utilisation)
-4. [RGPD et confidentialité](#rgpd-et-confidentialité)
-
-   1. [Données collectées](#données-collectées)
-   2. [Finalités du traitement](#finalités-du-traitement)
-   3. [Base légale](#base-légale)
-   4. [Durée de conservation](#durée-de-conservation)
-   5. [Sécurité des données](#sécurité-des-données)
-   6. [Droits des utilisateurs](#droits-des-utilisateurs)
-   7. [Contact](#contact)
-5. [Contributeurs](#contributeurs)
-
----
-
-## Fonctionnalités
-
-* Inscription et authentification sécurisée (JWT, hachage des mots de passe)
-* Gestion du profil utilisateur
-* Consultation, création et suppression de claviers
-* Recommandations personnalisées
-* Redirections publiques via des slugs
-* Interface d'administration (création de claviers, consultation des logs)
-
----
+## Stack technique
+- **Front-End** : React.js, CSS avancé, ARIA  
+- **Back-End** : Node.js (Express) ou Django  
+- **Base de données** : PostgreSQL ou MySQL  
+- **Authentification** : JWT, hachage SHA-256/bcrypt  
+- **Tests** : Jest/Mocha (unitaires), Cypress/Puppeteer (fonctionnels)  
+- **CI/CD & Déploiement** : GitHub Actions, cloud provider (AWS/GCP/Azure)
 
 ## Installation
-
-1. Cloner le dépôt :
-
+1. Cloner le dépôt  
    ```bash
    git clone https://github.com/AdrienHouede/KeyChoose.git
-   cd KeyChoose/api
+   cd keychoose
    ```
-2. Installer les dépendances :
-
-   ```bash
-   npm install
-   ```
-3. Configurer le fichier `.env` :
-
+2. Configurer les variables d’environnement  
    ```env
-   PORT=3000
-   DB_HOST=127.0.0.1
-   DB_USER=root
-   DB_PASS=
-   DB_NAME=keychoose
-   JWT_SECRET=ton_secret_jwt
-   ```
-4. Lancer l'application en développement :
+   API_PORT=3000
+   CLIENT_PORT=5173
+   MYSQL_PORT=3306
 
+   JWT_SECRET=Jdne67vb67tfgYVYTF
+   MYSQL_HOST=localhost
+   MYSQL_USER=root
+   MYSQL_ROOT_PASSWORD=
+   MYSQL_PASSWORD=
+   MYSQL_DATABASE=keychoose
+
+   SMTP_HOST=stmp.example.com
+   SMTP_PORT=465
+   SMTP_USER=no-reply@example.com
+   SMTP_PASS=
+   ```
+3. Installer les dépendances  
    ```bash
-   npm run dev
+   cd api && npm install
+   cd client && npm install
    ```
+4. Lancer la base de données  
+   ```bash
+   docker-compose up --build -d
+   ```
+5. Démarrer l’application  
+   - Accéder au projet via http://localhost:{CLIENT_PORT}
 
----
+## Usage
+- Accéder à l’UI : `http://localhost:{CLIENT_PORT}`  
+- Documentation API : `http://localhost:{API_PORT}/docs`
 
-## Utilisation
+## API Reference
+### Authentification
+- **POST /api/auth/register** – S’inscrire  
+- **POST /api/auth/login** – Se connecter  
+- **POST /api/password/forgot** – Demander reset  
+- **POST /api/password/reset** – Réinitialiser mot de passe
 
-L'API est documentée via Swagger à l'URL : `http://localhost:3000/docs`
+### Profils & recommandations
+- **POST /api/profile** – Créer un profil  
+- **GET /api/recommendation/:id** – Obtenir recommandations
 
----
+### Claviers
+- **GET /api/keyboards** – Lister  
+- **POST /api/keyboards** – Ajouter  
+- **DELETE /api/keyboards/:id** – Supprimer
+
+### Administration
+- **POST /api/admin/keyboards** – Ajout (admin)  
+- **GET /api/admin/logs** – Journaux (admin)
+
+## Tests
+```bash
+# API
+cd api && npm test
+```
 
 ## RGPD et confidentialité
 
@@ -123,11 +138,5 @@ Pour toute question relative à la confidentialité et au RGPD, contactez :
 Email : [rgpd@keychoose.com](mailto:rgpd@keychoose.com)
 Téléphone : +33 1 23 45 67 89
 
----
-
-## Contributeurs
-
-* Thomas BIZET
-* Adrien HOUEDE
-
----
+## License
+MIT © HOUEDE Adrien & BIZET Thomas
