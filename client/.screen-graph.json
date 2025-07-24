@@ -67,7 +67,7 @@
       "id": "src/screens/Admin/Admin.jsx",
       "label": "Admin",
       "routes": [
-        "/logs"
+        "/admin"
       ]
     }
   ],
