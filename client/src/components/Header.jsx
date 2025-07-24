@@ -16,12 +16,11 @@ export const Header = () => {
       <div className="logo-container">
         <Link to="/profil">
           <img
-            src="https://c.animaapp.com/mdeaibpn2YVHFn/img/image-5.png"
+            src="favicon.ico"
             alt="Logo"
             className="logo-image"
           />
         </Link>
-        <h1 className="title">KeyChoose</h1>
       </div>
 
       <nav className="nav-links">
